@@ -1,0 +1,31 @@
+[project]
+name = "adk-short-bot"
+version = "0.1.0"
+description = "A bot that shortens your messages"
+authors = [
+    {name = "Brandon Hancock", email = "brandon@brandonhancock.io"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+license = "Apache License 2.0"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<3.13"
+requests = "^2.31.0"
+google-adk = "^0.1.0"
+pydantic = "^2.11.3"
+python-dotenv = "^1.1.0"
+google-cloud-aiplatform = {extras = ["adk", "agent_engines"], version = "^1.42.1"}
+absl-py = "^2.1.0"
+cloudpickle = "^3.0.0"
+
+[tool.poetry.scripts]
+adk-short-bot = "adk_short_bot:app"
+deploy-local = "deployment.local:main"
+deploy-remote = "deployment.remote:main"
+cleanup = "deployment.cleanup:cleanup_deployment"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
