@@ -1,155 +1,105 @@
-# ADK Short Bot
+# Agent System Project
 
-A Python-based agent that helps shorten messages using Google's Agent Development Kit (ADK) and Vertex AI.
+A production-ready AI agent system built with Google Cloud's Vertex AI Agent Engine. This project demonstrates deploying and managing AI agents at scale using Google Cloud infrastructure.
 
-## Prerequisites
+## 🚀 Features
 
-- Python 3.12+
-- Poetry (Python package manager)
-- Google Cloud account with Vertex AI API enabled
-- Google Cloud CLI (`gcloud`) installed and authenticated
-  - Follow the [official installation guide](https://cloud.google.com/sdk/docs/install) to install gcloud
-  - After installation, run `gcloud init` and `gcloud auth login`
+- Fully managed AI agent deployment
+- Scalable cloud infrastructure
+- Session management and persistence
+- Secure authentication via Google Cloud IAM
+- Professional monitoring and logging
+- REST API endpoints for agent interaction
 
-## Installation
+## 📋 Prerequisites
 
-1. Clone the repository:
+- Python 3.9+
+- Poetry for dependency management
+- Google Cloud CLI
+- Google Cloud project with Agent Engine API enabled
+- Proper IAM permissions
+
+## 🛠️ Installation
+
 ```bash
-git clone https://github.com/bhancockio/deploy-adk-agent-engine.git
-cd adk-short-bot
-```
+# Clone the repository
+git clone [your-repo-url]
+cd agent-system
 
-2. Install Poetry if you haven't already:
-```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-3. Install project dependencies:
-```bash
+# Install dependencies
 poetry install
-```
 
-4. Activate the virtual environment:
-```bash
-source $(poetry env info --path)/bin/activate
-```
-
-## Configuration
-
-1. Create a `.env` file in the project root with the following variables:
-```bash
-GOOGLE_GENAI_USE_VERTEXAI=TRUE
-GOOGLE_CLOUD_PROJECT=your-project-id
-GOOGLE_CLOUD_LOCATION=your-location  # e.g., us-central1
-GOOGLE_CLOUD_STAGING_BUCKET=gs://your-bucket-name
-```
-
-2. Set up Google Cloud authentication:
-```bash
+# Configure Google Cloud
 gcloud auth login
-gcloud config set project your-project-id
+gcloud config set project agent-101-457716
 ```
 
-3. Enable required APIs:
+## 🔧 Configuration
+
+Set up your environment variables:
+
 ```bash
-gcloud services enable aiplatform.googleapis.com
+GOOGLE_CLOUD_PROJECT=agent-101-457716
+GOOGLE_CLOUD_LOCATION=us-central1
+GOOGLE_CLOUD_STAGING_BUCKET=agent-101-staging
 ```
 
-## Usage
+## 📦 Deployment
 
-### Local Testing
+Deploy your agent to Agent Engine:
 
-1. Create a new session:
 ```bash
-poetry run deploy-local --create_session
+poetry run python deployment/remote.py --create
 ```
 
-2. List all sessions:
+## 🔌 Usage
+
+### Create a Session
 ```bash
-poetry run deploy-local --list_sessions
+poetry run python deployment/remote.py --create_session --resource_id=687792901685510144
 ```
 
-3. Get details of a specific session:
+### Send Messages
 ```bash
-poetry run deploy-local --get_session --session_id=your-session-id
+poetry run python deployment/remote.py --send \
+    --resource_id=687792901685510144 \
+    --session_id=YOUR_SESSION_ID \
+    --message="Your message here"
 ```
 
-4. Send a message to shorten:
-```bash
-poetry run deploy-local --send --session_id=your-session-id --message="Shorten this message: Hello, how are you doing today?"
-```
-
-### Remote Deployment
-
-1. Deploy the agent:
-```bash
-poetry run deploy-remote --create
-```
-
-2. Create a session:
-```bash
-poetry run deploy-remote --create_session --resource_id=your-resource-id
-```
-
-3. List sessions:
-```bash
-poetry run deploy-remote --list_sessions --resource_id=your-resource-id
-```
-
-4. Send a message:
-```bash
-poetry run deploy-remote --send --resource_id=your-resource-id --session_id=your-session-id --message="Hello, how are you doing today? So far, I've made breakfast today, walkted dogs, and went to work."
-```
-
-5. Clean up (delete deployment):
-```bash
-poetry run deploy-remote --delete --resource_id=your-resource-id
-```
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
-adk-short-bot/
-├── adk_short_bot/          # Main package directory
-│   ├── __init__.py
-│   ├── agent.py           # Agent implementation
-│   └── prompt.py          # Prompt templates
-├── deployment/            # Deployment scripts
-│   ├── local.py          # Local testing script
-│   └── remote.py         # Remote deployment script
-├── .env                  # Environment variables
-├── poetry.lock          # Poetry lock file
-└── pyproject.toml       # Project configuration
+agent-system/
+├── deployment/
+│   ├── remote.py      # Deployment management
+│   └── utils.py       # Utility functions
+├── agent/
+│   ├── core.py        # Core agent logic
+│   └── tools.py       # Agent tools
+├── tests/             # Test suite
+├── poetry.lock        # Lock file
+└── pyproject.toml     # Project configuration
 ```
 
-## Development
+## 📊 Monitoring
 
-To add new features or modify existing ones:
+Monitor your agent through Google Cloud Console:
+- Cloud Monitoring for metrics
+- Cloud Logging for logs
+- Cloud Trace for performance analysis
 
-1. Make your changes in the relevant files
-2. Test locally using the local deployment script
-3. Deploy to remote using the remote deployment script
-4. Update documentation as needed
+## 🔑 Security
 
-## Troubleshooting
+- Authentication via Google Cloud IAM
+- Encrypted communication
+- Secure session management
+- Rate limiting and quota management
 
-1. If you encounter authentication issues:
-   - Ensure you're logged in with `gcloud auth login`
-   - Verify your project ID and location in `.env`
-   - Check that the Vertex AI API is enabled
-
-2. If deployment fails:
-   - Check the staging bucket exists and is accessible
-   - Verify all required environment variables are set
-   - Ensure you have the necessary permissions in your Google Cloud project
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Submit a pull request
-
-## License
+## 📝 License
 
 [Your chosen license]
+
+## 🤝 Contributing
+
+[Your contribution guidelines]
